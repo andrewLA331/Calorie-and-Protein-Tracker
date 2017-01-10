@@ -1,0 +1,147 @@
+<html>
+<head>
+    
+    <title>Food Tracker</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    
+</head>
+
+<body>
+    <div class="top-bar">
+        <h1>Enter a new food</h1>
+        <div id="food-input">
+        <input id="name-input" type="text" placeholder="Name">
+        <input id="calories-input" type="text" placeholder="Calories">
+        <input id="protein-input" type="text" placeholder="Protein">
+        <button onclick="newFood()" class="add-button">+</button>
+        </div>
+    </div>
+
+    <div class="clear"></div>
+    
+    <div class="middle-bar">
+        <ul id="food-list">
+            
+        </ul>
+    </div>
+    
+    <div class="clear"></div>
+    
+    <div class="bottom-bar">
+        <p class="total-label">Total Calories: <p id="calories"></p></p>
+        <p class="total-label">Total Protein: <p id="protein"></p></p>
+    </div>
+
+<script>
+    
+var myNodelist = document.getElementsByTagName("li");
+var i;
+for (i = 0; i < myNodelist.length; i++) {
+  var span = document.createElement("SPAN");
+  var txt = document.createTextNode("\u00D7");
+  span.className = "close";
+  span.appendChild(txt);
+  myNodelist[i].appendChild(span);
+}
+    
+var close = document.getElementsByClassName("close");
+var i;
+for (i = 0; i < close.length; i++) {
+  close[i].onclick = function() {
+    var div = this.parentElement;
+    div.style.display = "none";
+  }
+}
+    
+var totalCalories = 0;
+var totalProtein = 0;
+    
+function newFood() {
+    var ul = document.getElementById("food-list")
+    var li = document.createElement("li");
+    
+    ul.appendChild(li);
+    
+    var foodItem = document.getElementById("name-input").value;
+    
+    var calories = document.getElementById("calories-input").value;
+    
+    var protein = document.getElementById("protein-input").value;
+    
+    var calNum = Number(calories);
+    var proNum = Number(protein);
+    
+    document.getElementById("calories").value = calNum;
+    document.getElementById("protein").value = proNum;
+    
+    var list = document.querySelector('ul');
+    list.addEventListener('click', function(ev) {
+      if (ev.target.tagName === 'LI') {
+        ev.target.classList.toggle('checked');
+        totalCalories = totalCalories + calNum;
+        totalProtein = totalProtein + proNum;
+      }
+    }, false);
+    
+    var span = document.createElement("SPAN");
+    var food = document.createTextNode(foodItem);
+    span.className = "food";
+    span.appendChild(food);
+    li.appendChild(span);
+    
+    var div = document.createElement("DIV");
+    div.className = "amount-container";
+    li.appendChild(div);
+    
+    var span = document.createElement("SPAN");
+    var txt = document.createTextNode("+");
+    span.className = "up";
+    span.appendChild(txt);
+    div.appendChild(span);
+    
+    span.addEventListener('click', function(a) {
+        alert('Hey');
+    });
+     
+    var span = document.createElement("SPAN");
+    var txt = document.createTextNode("0");
+    span.className = "item-amount";
+    span.appendChild(txt);
+    div.appendChild(span);
+    
+    var span = document.createElement("SPAN");
+    var txt = document.createTextNode("-");
+    span.className = "down";
+    span.appendChild(txt);
+    div.appendChild(span);
+    
+    span.addEventListener('click', function() {
+        alert('No');
+        document.getElementById("calories").value = totalCalories;
+    });
+    
+    var span = document.createElement("SPAN");
+    var txt = document.createTextNode("\u00D7");
+    span.className = "close";
+    span.appendChild(txt);
+    li.appendChild(span);
+    
+    for (i = 0; i < close.length; i++) {
+        close[i].onclick = function() {
+            var div = this.parentElement;
+            div.style.display = "none";
+        }
+    }    
+    
+    document.getElementById("name-input").value = "";
+    document.getElementById("calories-input").value = "";
+    document.getElementById("protein-input").value = "";
+    
+}
+
+</script>
+</body>
+
+
+
+</html>
